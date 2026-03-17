@@ -30,7 +30,7 @@ function HomeScreen() {
                                         {service.description.substring(0, 80)}...
                                     </Card.Text>
                                     <div className="mb-3">
-                                        <Rating value={service.rating} text={`${service.numReviews} reviews`} color={'#f8e825'} />
+                                        <Rating value={service.rating} color={'#f8e825'} />
                                     </div>
                                     <Link to={`/service/${service.id}`}>
                                         <Button variant="primary" className="w-100">View Details</Button>
