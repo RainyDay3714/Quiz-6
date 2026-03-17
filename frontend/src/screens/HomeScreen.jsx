@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { listServices } from '../actions/serviceActions'
 import { Link } from 'react-router-dom'
 import { Container, Card, Button } from 'react-bootstrap'
+import Rating from '../components/Rating'
 
 function HomeScreen() {
     const dispatch = useDispatch();
@@ -29,7 +30,7 @@ function HomeScreen() {
                                         {service.description.substring(0, 80)}...
                                     </Card.Text>
                                     <div className="mb-3">
-                                        <span className="badge bg-warning text-dark">{service.rating}</span>
+                                        <Rating value={service.rating} text={`${service.numReviews} reviews`} color={'#f8e825'} />
                                     </div>
                                     <Link to={`/service/${service.id}`}>
                                         <Button variant="primary" className="w-100">View Details</Button>
