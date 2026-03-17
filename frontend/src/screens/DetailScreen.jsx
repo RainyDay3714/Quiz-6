@@ -3,10 +3,21 @@ import {Row, Col, Image, ListGroup, Button, Card} from 'react-bootstrap'
 import Rating from '../components/Rating'
 import { audioDevices, setups, tvs } from '../data'
 import { useParams } from 'react-router-dom'
+import axios from 'axios'
+import React, { useState, useEffect } from 'react'
 
 function DetailScreen() {
     const {id} = useParams()
-    const product = tvs.find((p) => p.id === Number(id)) || audioDevices.find((p) => p.id === Number(id)) || setups.find((p) => p.id === Number(id))
+    const [product, setProduct] = useState([])
+
+    useEffect(() => {
+        async function fetchProduct() {
+            try {
+                const { data } = await axios.get(`http://127.0.0.1:8000/api/tvs/${id}/`)
+                setProduct(data)
+        fetchProduct()
+    }, [])
+
     return (
         <div>
             <Link className='btn btn-light my-3' to='/'>Go Back</Link>
