@@ -16,7 +16,7 @@ function HomeScreen() {
 
     return (
         <Container>
-            <h2 className="my-4">Expert TV & Entertainment Services</h2>
+            <h2 className="my-4">TV & Entertainment Services</h2>
             {loading ? <h5>Loading Services...</h5> : error ? <div className="text-danger">{error}</div> : (
                 <Row>
                     {services.map((service) => (

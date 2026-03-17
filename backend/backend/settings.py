@@ -37,14 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'users',
     'applications',
-    'services',
     'orders',
     'chat',
     'subscriptions',
     'rest_framework',
     'corsheaders',
+    'users',
+    'services',
 ]
 
 MIDDLEWARE = [
@@ -125,5 +125,9 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+AUTH_USER_MODEL = 'users.User'
