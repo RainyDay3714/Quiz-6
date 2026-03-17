@@ -1,64 +1,47 @@
-import React from 'react'
 import { Row, Col } from 'react-bootstrap'
-import { tvs, audioDevices, setups } from '../data'
-import Product from '../components/Product'
-import axios from 'axios'
-import React, { useState, useEffect } from 'react'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { listServices } from '../actions/serviceActions'
+import { Link } from 'react-router-dom'
+import { Container, Card, Button } from 'react-bootstrap'
 
 function HomeScreen() {
-    const [tvs, setTvs] = useState([])
+    const dispatch = useDispatch();
+    const serviceList = useSelector((state) => state.serviceList);
+    const { loading, error, services } = serviceList;
+
     useEffect(() => {
-        async function fetchTvs() {
-            const { data } = await axios.get('http://127.0.0.1:8000/api/tvs/')
-                setTvs(data)
-        }
-        fetchTvs()
-    }, [])
+        dispatch(listServices());
+    }, [dispatch]);
 
-    const [audioDevices, setAudioDevices] = useState([])
-    useEffect(() => {
-        async function fetchAudioDevices() {
-            const { data } = await axios.get('http://127.0.0.1:8000/api/audio-devices/')
-            setAudioDevices(data)
-        }
-        fetchAudioDevices()
-    }, [])
+    return (
+        <Container>
+            <h2 className="my-4">Expert TV & Entertainment Services</h2>
+            {loading ? <h5>Loading Services...</h5> : error ? <div className="text-danger">{error}</div> : (
+                <Row>
+                    {services.map((service) => (
+                        <Col key={service.id} sm={12} md={6} lg={4}>
+                            <Card className="my-3 shadow-sm border-0">
+                                <Card.Img variant="top" src={service.sample_image} style={{ height: '200px', objectFit: 'cover' }} />
+                                <Card.Body>
+                                    <Card.Title>{service.service_name}</Card.Title>
+                                    <Card.Text className="text-muted">
+                                        {service.description.substring(0, 80)}...
+                                    </Card.Text>
+                                    <div className="mb-3">
+                                        <span className="badge bg-warning text-dark">{service.rating} ⭐</span>
+                                    </div>
+                                    <Link to={`/service/${service.id}`}>
+                                        <Button variant="primary" className="w-100">View Details</Button>
+                                    </Link>
+                                </Card.Body>
+                            </Card>
+                        </Col>
+                    ))}
+                </Row>
+            )}
+        </Container>
+    );
+};
 
-    const [setups, setSetups] = useState([])
-    useEffect(() => {
-        async function fetchSetups() {
-            const { data } = await axios.get('http://127.0.0.1:8000/api/setups/')
-            setSetups(data)
-        }
-        fetchSetups()
-    }, [])
-
-  return (
-    <div>
-        <h1>TV & Home Entertainment Setup</h1>
-        <Row>
-            {tvs.map((tv) => (
-                <Col key={tv.id} sm={12} md={6} lg={4}>
-                    <Product tv={tv}/>
-                </Col>
-            ))}
-        </Row>
-        <Row>
-            {audioDevices.map((device) => (
-                <Col key={device.id} sm={12} md={6} lg={4}>
-                    <Product audioDevice={device}/>
-                </Col>
-            ))}
-        </Row>
-        <Row>
-            {setups.map((setup) => (
-                <Col key={setup.id} sm={12} md={6} lg={4}>
-                    <Product setup={setup}/>
-                </Col>
-            ))}
-        </Row>
-    </div>
-  )
-}
-
-export default HomeScreen
+export default HomeScreen;
