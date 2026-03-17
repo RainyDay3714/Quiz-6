@@ -7,7 +7,7 @@ import {
 export const listServices = () => async (dispatch) => {
     try {
         dispatch({ type: SERVICE_LIST_REQUEST });
-        const { data } = await axios.get('/api/v1/services/list/');
+        const { data } = await axios.get('http://127.0.0.1:8000/api/v1/services/list/');
         dispatch({ type: SERVICE_LIST_SUCCESS, payload: data });
     } catch (error) {
         dispatch({
@@ -20,7 +20,7 @@ export const listServices = () => async (dispatch) => {
 export const listServiceDetails = (id) => async (dispatch) => {
     try {
         dispatch({ type: SERVICE_DETAILS_REQUEST });
-        const { data } = await axios.get(`/api/v1/services/${id}/`);
+        const { data } = await axios.get(`http://127.0.0.1:8000/api/v1/services/${id}/`);
         dispatch({ type: SERVICE_DETAILS_SUCCESS, payload: data });
     } catch (error) {
         dispatch({

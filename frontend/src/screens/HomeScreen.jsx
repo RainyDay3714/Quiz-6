@@ -29,7 +29,7 @@ function HomeScreen() {
                                         {service.description.substring(0, 80)}...
                                     </Card.Text>
                                     <div className="mb-3">
-                                        <span className="badge bg-warning text-dark">{service.rating} ⭐</span>
+                                        <span className="badge bg-warning text-dark">{service.rating}</span>
                                     </div>
                                     <Link to={`/service/${service.id}`}>
                                         <Button variant="primary" className="w-100">View Details</Button>

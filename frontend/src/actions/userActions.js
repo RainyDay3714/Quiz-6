@@ -7,7 +7,7 @@ export const register = (userData) => async (dispatch) => {
         };
 
         const { data } = await axios.post(
-            '/api/v1/users/register/',
+            'http://127.0.0.1:8000/api/v1/users/register/',
             userData,
             config
         );
